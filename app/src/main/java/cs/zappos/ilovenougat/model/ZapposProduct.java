@@ -2,7 +2,7 @@ package cs.zappos.ilovenougat.model;
 
 import android.text.Html;
 
-public class ZappoProduct {
+public class ZapposProduct {
     private String brandName;
     private String productName;
     public String thumbnailImageUrl;

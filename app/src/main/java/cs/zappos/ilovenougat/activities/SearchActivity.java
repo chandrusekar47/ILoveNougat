@@ -6,7 +6,6 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.KeyEvent;
-import android.view.WindowManager;
 import android.view.inputmethod.EditorInfo;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.TextView;
@@ -19,8 +18,8 @@ import cs.zappos.ilovenougat.BuildConfig;
 import cs.zappos.ilovenougat.SearchResultsRecyclerViewAdapter;
 import cs.zappos.ilovenougat.databinding.ActivitySearchBinding;
 import cs.zappos.ilovenougat.model.SixPmSearchResults;
-import cs.zappos.ilovenougat.model.ZappoProduct;
-import cs.zappos.ilovenougat.model.ZappoSearchResults;
+import cs.zappos.ilovenougat.model.ZapposProduct;
+import cs.zappos.ilovenougat.model.ZapposSearchResults;
 import cs.zappos.ilovenougat.util.RetrofitUtils;
 import cs.zappos.ilovenougat.viewmodel.SearchViewModel;
 import me.tatarka.bindingcollectionadapter.BindingRecyclerViewAdapter;
@@ -60,9 +59,9 @@ public class SearchActivity extends AppCompatActivity implements BindingRecycler
     private void searchZappos(String searchQuery) {
         searchViewModel.searchStarted();
         RetrofitUtils.zapposApi().search(searchQuery, BuildConfig.ZAPPOS_API_KEY)
-                .enqueue(new Callback<ZappoSearchResults>() {
+                .enqueue(new Callback<ZapposSearchResults>() {
                     @Override
-                    public void onResponse(Call<ZappoSearchResults> call, Response<ZappoSearchResults> response) {
+                    public void onResponse(Call<ZapposSearchResults> call, Response<ZapposSearchResults> response) {
                         if (response.isSuccessful()) {
                             searchViewModel.updateSearchResults (response.body());
                             activitySearchBinding.executePendingBindings();
@@ -73,7 +72,7 @@ public class SearchActivity extends AppCompatActivity implements BindingRecycler
                     }
 
                     @Override
-                    public void onFailure(Call<ZappoSearchResults> call, Throwable t) {
+                    public void onFailure(Call<ZapposSearchResults> call, Throwable t) {
                         Log.e(SearchActivity.class.getName(), t.getMessage(), t);
                         Toast.makeText(SearchActivity.this, "Unable to reach server. Please try again later", Toast.LENGTH_LONG).show();
                     }
@@ -82,11 +81,11 @@ public class SearchActivity extends AppCompatActivity implements BindingRecycler
 
     @Override
     public <T> BindingRecyclerViewAdapter<T> create(RecyclerView recyclerView, ItemViewArg<T> arg) {
-        return (BindingRecyclerViewAdapter<T>) new SearchResultsRecyclerViewAdapter((ItemViewArg<ZappoProduct>) arg, this);
+        return (BindingRecyclerViewAdapter<T>) new SearchResultsRecyclerViewAdapter((ItemViewArg<ZapposProduct>) arg, this);
     }
 
     @Override
-    public void onItemClicked(ZappoProduct item) {
+    public void onItemClicked(ZapposProduct item) {
         RetrofitUtils.sixPmApi()
                 .search(item.productId, BuildConfig.SIX_PM_API_KEY)
                 .enqueue(new Callback<SixPmSearchResults>() {

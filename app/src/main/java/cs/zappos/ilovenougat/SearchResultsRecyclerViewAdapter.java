@@ -6,14 +6,14 @@ import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 
-import cs.zappos.ilovenougat.model.ZappoProduct;
+import cs.zappos.ilovenougat.model.ZapposProduct;
 import me.tatarka.bindingcollectionadapter.BindingRecyclerViewAdapter;
 import me.tatarka.bindingcollectionadapter.ItemViewArg;
 
-public class SearchResultsRecyclerViewAdapter extends BindingRecyclerViewAdapter<ZappoProduct> {
+public class SearchResultsRecyclerViewAdapter extends BindingRecyclerViewAdapter<ZapposProduct> {
     private final Listener listener;
 
-    public SearchResultsRecyclerViewAdapter(@NonNull ItemViewArg<ZappoProduct> arg, Listener listener) {
+    public SearchResultsRecyclerViewAdapter(@NonNull ItemViewArg<ZapposProduct> arg, Listener listener) {
         super(arg);
         this.listener = listener;
     }
@@ -24,7 +24,7 @@ public class SearchResultsRecyclerViewAdapter extends BindingRecyclerViewAdapter
     }
 
     @Override
-    public void onBindBinding(ViewDataBinding binding, int bindingVariable, @LayoutRes int layoutRes, int position, final ZappoProduct item) {
+    public void onBindBinding(ViewDataBinding binding, int bindingVariable, @LayoutRes int layoutRes, int position, final ZapposProduct item) {
         super.onBindBinding(binding, bindingVariable, layoutRes, position, item);
         binding.getRoot().setOnClickListener(new View.OnClickListener() {
             @Override
@@ -35,7 +35,7 @@ public class SearchResultsRecyclerViewAdapter extends BindingRecyclerViewAdapter
     }
 
     public interface Listener {
-        void onItemClicked(ZappoProduct item);
+        void onItemClicked(ZapposProduct item);
     }
 
 }

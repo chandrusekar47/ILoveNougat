@@ -10,7 +10,7 @@
 
         <variable
             name="item"
-            type="cs.zappos.ilovenougat.model.ZappoProduct" />
+            type="cs.zappos.ilovenougat.model.ZapposProduct" />
     </data>
 
 

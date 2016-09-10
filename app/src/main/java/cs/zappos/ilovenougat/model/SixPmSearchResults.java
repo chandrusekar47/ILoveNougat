@@ -7,5 +7,5 @@ public class SixPmSearchResults {
     public String currentResultCount;
     public String totalResultCount;
     public String term;
-    public List<ZappoProduct> results;
+    public List<ZapposProduct> results;
 }

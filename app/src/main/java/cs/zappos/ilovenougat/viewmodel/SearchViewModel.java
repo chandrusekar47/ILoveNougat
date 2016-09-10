@@ -8,12 +8,12 @@ import android.view.View;
 
 import cs.zappos.ilovenougat.BR;
 import cs.zappos.ilovenougat.R;
-import cs.zappos.ilovenougat.model.ZappoProduct;
-import cs.zappos.ilovenougat.model.ZappoSearchResults;
+import cs.zappos.ilovenougat.model.ZapposProduct;
+import cs.zappos.ilovenougat.model.ZapposSearchResults;
 import me.tatarka.bindingcollectionadapter.ItemView;
 
 public class SearchViewModel extends BaseObservable {
-    private final ObservableList<ZappoProduct> searchResults = new ObservableArrayList<>();
+    private final ObservableList<ZapposProduct> searchResults = new ObservableArrayList<>();
     public final ItemView itemView = ItemView.of(BR.item, R.layout.search_result_item);
     private String lastSearchTerm = "";
     private boolean isSearching = false;
@@ -43,11 +43,11 @@ public class SearchViewModel extends BaseObservable {
         return !this.lastSearchTerm.isEmpty() && searchResults.isEmpty();
     }
 
-    public ObservableList<ZappoProduct> getSearchResults() {
+    public ObservableList<ZapposProduct> getSearchResults() {
         return searchResults;
     }
 
-    public void updateSearchResults(ZappoSearchResults searchResults) {
+    public void updateSearchResults(ZapposSearchResults searchResults) {
         this.searchResults.clear();
         this.searchResults.addAll(searchResults.results);
         this.lastSearchTerm = searchResults.originalTerm;
