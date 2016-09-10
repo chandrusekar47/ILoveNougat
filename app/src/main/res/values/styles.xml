@@ -27,4 +27,9 @@
         <item name="android:textStyle">bold</item>
     </style>
 
+    <style name="BannerText">
+        <item name="android:textSize">25sp</item>
+        <item name="android:gravity">center</item>
+    </style>
+
 </resources>

@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:bind="http://schemas.android.com/apk/res-auto">
+
+    <data>
+
+        <variable
+            name="zapposProduct"
+            type="cs.zappos.ilovenougat.model.Product" />
+
+        <variable
+            name="sixPmProduct"
+            type="cs.zappos.ilovenougat.model.Product" />
+    </data>
+
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:padding="17dp"
+        android:orientation="vertical">
+
+        <TextView
+            style="@style/BannerText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/dialog_banner" />
+
+        <TextView
+            style="@style/LargeText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:layout_marginTop="10dp"
+            android:text="@string/dialog_header" />
+
+        <TextView
+            style="@style/LargeText.Bold"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:text="@string/zappos_com" />
+
+        <include
+            layout="@layout/search_result_item"
+            android:layout_width="match_parent"
+            android:layout_height="120dp"
+            android:layout_marginTop="10dp"
+            bind:item="@{zapposProduct}" />
+
+        <TextView
+            style="@style/LargeText.Bold"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:gravity="center"
+            android:text="@string/_6pm_com" />
+
+        <include
+            layout="@layout/search_result_item"
+            android:layout_width="match_parent"
+            android:layout_height="120dp"
+            bind:item="@{sixPmProduct}" />
+    </LinearLayout>
+</layout>

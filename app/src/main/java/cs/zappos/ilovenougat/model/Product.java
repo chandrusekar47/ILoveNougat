@@ -1,10 +1,13 @@
 package cs.zappos.ilovenougat.model;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 import cs.zappos.ilovenougat.util.TextUtils;
 
 public class Product {
     private String brandName;
     private String productName;
+    @JsonProperty("price")
     private String price;
     public String thumbnailImageUrl;
     public String productId;

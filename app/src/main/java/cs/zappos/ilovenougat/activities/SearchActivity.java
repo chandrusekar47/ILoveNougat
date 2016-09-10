@@ -1,7 +1,10 @@
 package cs.zappos.ilovenougat.activities;
 
 import android.content.Context;
+import android.databinding.DataBindingUtil;
+import android.databinding.ViewDataBinding;
 import android.os.Bundle;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -14,7 +17,9 @@ import android.widget.Toast;
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.nostra13.universalimageloader.core.ImageLoaderConfiguration;
 
+import cs.zappos.ilovenougat.BR;
 import cs.zappos.ilovenougat.BuildConfig;
+import cs.zappos.ilovenougat.R;
 import cs.zappos.ilovenougat.SearchResultsRecyclerViewAdapter;
 import cs.zappos.ilovenougat.databinding.ActivitySearchBinding;
 import cs.zappos.ilovenougat.model.Product;
@@ -84,30 +89,39 @@ public class SearchActivity extends AppCompatActivity implements BindingRecycler
     }
 
     @Override
-    public void onItemClicked(final Product product) {
+    public void onItemClicked(final Product zapposProduct) {
         RetrofitUtils.sixPmApi()
-                .search(product.productId, BuildConfig.SIX_PM_API_KEY)
+                .search(zapposProduct.productId, BuildConfig.SIX_PM_API_KEY)
                 .enqueue(new Callback<SearchResults>() {
                     @Override
                     public void onResponse(Call<SearchResults> call, Response<SearchResults> response) {
                         if (response.isSuccessful()) {
-                            Product matchingSixPmProduct = response.body().getMatchingProduct(product);
+                            Product matchingSixPmProduct = response.body().getMatchingProduct(zapposProduct);
                             if (matchingSixPmProduct != null) {
-
+                                showZapposAndSixPmProduct(matchingSixPmProduct, zapposProduct);
                             } else {
-                                Toast.makeText(SearchActivity.this, "Sorry, we couldn't this product in 6PM.com", Toast.LENGTH_LONG).show();
+                                Toast.makeText(SearchActivity.this, R.string.product_not_found_in_6_pm, Toast.LENGTH_LONG).show();
                             }
                         } else {
                             Log.e(SearchActivity.class.getName(), "Unable to reach server. Please try again later " + response.message());
-                            Toast.makeText(SearchActivity.this, "Unable to reach server. Please try again later", Toast.LENGTH_LONG).show();
+                            Toast.makeText(SearchActivity.this, R.string.server_error_message, Toast.LENGTH_LONG).show();
                         }
                     }
 
                     @Override
                     public void onFailure(Call<SearchResults> call, Throwable t) {
                         Log.e(SearchActivity.class.getName(), t.getMessage(), t);
-                        Toast.makeText(SearchActivity.this, "Unable to reach server. Please try again later", Toast.LENGTH_LONG).show();
+                        Toast.makeText(SearchActivity.this, R.string.server_error_message, Toast.LENGTH_LONG).show();
                     }
                 });
+    }
+
+    private void showZapposAndSixPmProduct(Product matchingSixPmProduct, Product zapposProduct) {
+        ViewDataBinding viewDataBinding = DataBindingUtil.inflate(SearchActivity.this.getLayoutInflater(), R.layout.product_comparison, null, false);
+        viewDataBinding.setVariable(BR.zapposProduct, zapposProduct);
+        viewDataBinding.setVariable(BR.sixPmProduct, matchingSixPmProduct);
+        AlertDialog alertDialog = new AlertDialog.Builder(SearchActivity.this).setView(viewDataBinding.getRoot()).create();
+        alertDialog.setCanceledOnTouchOutside(true);
+        alertDialog.show();
     }
 }

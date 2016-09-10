@@ -3,4 +3,10 @@
     <string name="search_input">Search for product in Zappos!</string>
     <string name="thumbnail_image_desc">Image</string>
     <string name="empty_results_message">Sorry, we couldn\'t find that product :(</string>
+    <string name="product_not_found_in_6_pm">Sorry, we couldn\'t this product in 6PM.com</string>
+    <string name="server_error_message">Unable to reach server. Please try again later</string>
+    <string name="dialog_header">We found a cheaper option in 6PM.com!</string>
+    <string name="dialog_banner">This is your lucky day!</string>
+    <string name="zappos_com">Zappos.com</string>
+    <string name="_6pm_com">6PM.com</string>
 </resources>
