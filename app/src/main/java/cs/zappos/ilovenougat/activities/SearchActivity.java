@@ -89,12 +89,14 @@ public class SearchActivity extends AppCompatActivity implements BindingRecycler
     }
 
     @Override
-    public void onItemClicked(final Product zapposProduct) {
+    public void onItemClicked(final Product zapposProduct, final ViewDataBinding  viewDataBinding) {
+        viewDataBinding.setVariable(BR.shouldShowProgress, true);
         RetrofitUtils.sixPmApi()
                 .search(zapposProduct.productId, BuildConfig.SIX_PM_API_KEY)
                 .enqueue(new Callback<SearchResults>() {
                     @Override
                     public void onResponse(Call<SearchResults> call, Response<SearchResults> response) {
+                        viewDataBinding.setVariable(BR.shouldShowProgress, false);
                         if (response.isSuccessful()) {
                             Product matchingSixPmProduct = response.body().getMatchingProduct(zapposProduct);
                             if (matchingSixPmProduct != null) {
@@ -110,6 +112,7 @@ public class SearchActivity extends AppCompatActivity implements BindingRecycler
 
                     @Override
                     public void onFailure(Call<SearchResults> call, Throwable t) {
+                        viewDataBinding.setVariable(BR.shouldShowProgress, false);
                         Log.e(SearchActivity.class.getName(), t.getMessage(), t);
                         Toast.makeText(SearchActivity.this, R.string.server_error_message, Toast.LENGTH_LONG).show();
                     }

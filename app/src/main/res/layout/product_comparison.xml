@@ -15,8 +15,8 @@
     <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:padding="17dp"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        android:padding="17dp">
 
         <TextView
             style="@style/BannerText"
@@ -28,8 +28,8 @@
             style="@style/LargeText"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:gravity="center"
             android:layout_marginTop="10dp"
+            android:gravity="center"
             android:text="@string/dialog_header" />
 
         <TextView
@@ -44,7 +44,8 @@
             android:layout_width="match_parent"
             android:layout_height="120dp"
             android:layout_marginTop="10dp"
-            bind:item="@{zapposProduct}" />
+            bind:item="@{zapposProduct}"
+            bind:shouldShowProgress="@{false}" />
 
         <TextView
             style="@style/LargeText.Bold"
@@ -58,6 +59,7 @@
             layout="@layout/search_result_item"
             android:layout_width="match_parent"
             android:layout_height="120dp"
-            bind:item="@{sixPmProduct}" />
+            bind:item="@{sixPmProduct}"
+            bind:shouldShowProgress="@{false}" />
     </LinearLayout>
 </layout>

@@ -24,18 +24,18 @@ public class SearchResultsRecyclerViewAdapter extends BindingRecyclerViewAdapter
     }
 
     @Override
-    public void onBindBinding(ViewDataBinding binding, int bindingVariable, @LayoutRes int layoutRes, int position, final Product item) {
+    public void onBindBinding(final ViewDataBinding binding, int bindingVariable, @LayoutRes int layoutRes, int position, final Product item) {
         super.onBindBinding(binding, bindingVariable, layoutRes, position, item);
         binding.getRoot().setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                listener.onItemClicked(item);
+                listener.onItemClicked(item, binding);
             }
         });
     }
 
     public interface Listener {
-        void onItemClicked(Product item);
+        void onItemClicked(Product item, ViewDataBinding viewDataBinding);
     }
 
 }
