@@ -10,6 +10,8 @@ android {
         targetSdkVersion 24
         versionCode 1
         versionName "1.0"
+        buildConfigField "String", "ZAPPOS_API_KEY", "\"${rootProject.ext.zapposApiKey}\""
+        buildConfigField "String", "SIX_PM_API_KEY", "\"${rootProject.ext.sixPmApiKey}\""
     }
     buildTypes {
         release {

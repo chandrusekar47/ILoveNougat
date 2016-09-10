@@ -1,0 +1,4 @@
+ext {
+    zapposApiKey = "<zapposApiKey>"
+    sixPmApiKey = "<sixPmApiKey>"
+}
