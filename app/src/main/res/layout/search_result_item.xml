@@ -10,7 +10,7 @@
 
         <variable
             name="item"
-            type="cs.zappos.ilovenougat.model.ZapposProduct" />
+            type="cs.zappos.ilovenougat.model.Product" />
     </data>
 
 
@@ -92,7 +92,7 @@
                     style="@style/LargeText.Bold"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@{item.price}"
+                    android:text="@{item.formattedActualPrice}"
                     tools:text="$29.75" />
 
             </LinearLayout>

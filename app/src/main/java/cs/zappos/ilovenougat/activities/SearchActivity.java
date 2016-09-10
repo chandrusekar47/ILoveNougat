@@ -17,9 +17,8 @@ import com.nostra13.universalimageloader.core.ImageLoaderConfiguration;
 import cs.zappos.ilovenougat.BuildConfig;
 import cs.zappos.ilovenougat.SearchResultsRecyclerViewAdapter;
 import cs.zappos.ilovenougat.databinding.ActivitySearchBinding;
-import cs.zappos.ilovenougat.model.SixPmSearchResults;
-import cs.zappos.ilovenougat.model.ZapposProduct;
-import cs.zappos.ilovenougat.model.ZapposSearchResults;
+import cs.zappos.ilovenougat.model.Product;
+import cs.zappos.ilovenougat.model.SearchResults;
 import cs.zappos.ilovenougat.util.RetrofitUtils;
 import cs.zappos.ilovenougat.viewmodel.SearchViewModel;
 import me.tatarka.bindingcollectionadapter.BindingRecyclerViewAdapter;
@@ -59,11 +58,11 @@ public class SearchActivity extends AppCompatActivity implements BindingRecycler
     private void searchZappos(String searchQuery) {
         searchViewModel.searchStarted();
         RetrofitUtils.zapposApi().search(searchQuery, BuildConfig.ZAPPOS_API_KEY)
-                .enqueue(new Callback<ZapposSearchResults>() {
+                .enqueue(new Callback<SearchResults>() {
                     @Override
-                    public void onResponse(Call<ZapposSearchResults> call, Response<ZapposSearchResults> response) {
+                    public void onResponse(Call<SearchResults> call, Response<SearchResults> response) {
                         if (response.isSuccessful()) {
-                            searchViewModel.updateSearchResults (response.body());
+                            searchViewModel.updateSearchResults(response.body());
                             activitySearchBinding.executePendingBindings();
                         } else {
                             Log.e(SearchActivity.class.getName(), "Unable to reach server. Please try again later " + response.message());
@@ -72,7 +71,7 @@ public class SearchActivity extends AppCompatActivity implements BindingRecycler
                     }
 
                     @Override
-                    public void onFailure(Call<ZapposSearchResults> call, Throwable t) {
+                    public void onFailure(Call<SearchResults> call, Throwable t) {
                         Log.e(SearchActivity.class.getName(), t.getMessage(), t);
                         Toast.makeText(SearchActivity.this, "Unable to reach server. Please try again later", Toast.LENGTH_LONG).show();
                     }
@@ -81,19 +80,23 @@ public class SearchActivity extends AppCompatActivity implements BindingRecycler
 
     @Override
     public <T> BindingRecyclerViewAdapter<T> create(RecyclerView recyclerView, ItemViewArg<T> arg) {
-        return (BindingRecyclerViewAdapter<T>) new SearchResultsRecyclerViewAdapter((ItemViewArg<ZapposProduct>) arg, this);
+        return (BindingRecyclerViewAdapter<T>) new SearchResultsRecyclerViewAdapter((ItemViewArg<Product>) arg, this);
     }
 
     @Override
-    public void onItemClicked(ZapposProduct item) {
+    public void onItemClicked(final Product product) {
         RetrofitUtils.sixPmApi()
-                .search(item.productId, BuildConfig.SIX_PM_API_KEY)
-                .enqueue(new Callback<SixPmSearchResults>() {
+                .search(product.productId, BuildConfig.SIX_PM_API_KEY)
+                .enqueue(new Callback<SearchResults>() {
                     @Override
-                    public void onResponse(Call<SixPmSearchResults> call, Response<SixPmSearchResults> response) {
+                    public void onResponse(Call<SearchResults> call, Response<SearchResults> response) {
                         if (response.isSuccessful()) {
-                            SixPmSearchResults searchResults = response.body();
+                            Product matchingSixPmProduct = response.body().getMatchingProduct(product);
+                            if (matchingSixPmProduct != null) {
 
+                            } else {
+                                Toast.makeText(SearchActivity.this, "Sorry, we couldn't this product in 6PM.com", Toast.LENGTH_LONG).show();
+                            }
                         } else {
                             Log.e(SearchActivity.class.getName(), "Unable to reach server. Please try again later " + response.message());
                             Toast.makeText(SearchActivity.this, "Unable to reach server. Please try again later", Toast.LENGTH_LONG).show();
@@ -101,7 +104,7 @@ public class SearchActivity extends AppCompatActivity implements BindingRecycler
                     }
 
                     @Override
-                    public void onFailure(Call<SixPmSearchResults> call, Throwable t) {
+                    public void onFailure(Call<SearchResults> call, Throwable t) {
                         Log.e(SearchActivity.class.getName(), t.getMessage(), t);
                         Toast.makeText(SearchActivity.this, "Unable to reach server. Please try again later", Toast.LENGTH_LONG).show();
                     }
