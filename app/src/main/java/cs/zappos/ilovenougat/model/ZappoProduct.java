@@ -11,4 +11,9 @@ public class ZappoProduct {
     public String percentOff;
     public String productUrl;
     public String productName;
+
+    public boolean isOnSale() {
+        return originalPrice != null && !originalPrice.equals(price);
+    }
+
 }

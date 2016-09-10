@@ -1,54 +1,82 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:card_view="http://schemas.android.com/tools">
 
     <data>
+
+        <import type="android.view.View" />
 
         <variable
             name="item"
             type="cs.zappos.ilovenougat.model.ZappoProduct" />
     </data>
 
-    <RelativeLayout
+
+    <android.support.v7.widget.CardView
+        android:id="@+id/cv"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="wrap_content"
+        android:layout_margin="5dp"
+        card_view:cardElevation="4dp"
+        card_view:cardUseCompatPadding="true">
 
-        <ImageView
-            android:id="@+id/thumbnail_image"
-            android:layout_alignParentLeft="true"
-            android:layout_alignParentStart="true"
-            app:imageUrl="@{item.thumbnailImageUrl}"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
-
-        <LinearLayout
-            android:layout_toEndOf="@id/thumbnail_image"
-            android:layout_alignParentRight="true"
-            android:layout_alignParentEnd="true"
-            android:layout_toRightOf="@id/thumbnail_image"
+        <RelativeLayout
             android:layout_width="match_parent"
-            android:orientation="vertical"
             android:layout_height="match_parent">
-            <TextView
-                android:text="@{item.productName}"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content" />
-            <TextView
-                android:text="@{item.brandName}"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content" />
-            <TextView
-                android:text="@{item.price}"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content" />
-            <TextView
-                app:strikeThroughText="@{item.originalPrice}"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content" />
-            <TextView
-                app:strikeThroughText="@{item.percentOff}"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content" />
-        </LinearLayout>
-    </RelativeLayout>
+
+            <ImageView
+                android:id="@+id/thumbnail_image"
+                android:layout_width="150dp"
+                android:layout_height="120dp"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true"
+                android:background="@android:color/white"
+                android:contentDescription="@string/thumbnail_image_desc"
+                android:scaleType="center"
+                android:src="@android:drawable/ic_menu_gallery"
+                app:imageUrl="@{item.thumbnailImageUrl}" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_alignParentEnd="true"
+                android:layout_alignParentRight="true"
+                android:layout_toEndOf="@id/thumbnail_image"
+                android:layout_toRightOf="@id/thumbnail_image"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:ellipsize="end"
+
+                    android:text="@{item.productName}" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@{item.brandName}" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@{item.price}" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:visibility="@{item.isOnSale ? View.VISIBLE : View.GONE}"
+                    app:strikeThroughText="@{item.originalPrice}" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@{item.percentOff}"
+                    android:visibility="@{item.isOnSale ? View.VISIBLE : View.GONE}" />
+            </LinearLayout>
+        </RelativeLayout>
+
+    </android.support.v7.widget.CardView>
+
 </layout>

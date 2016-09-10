@@ -10,6 +10,7 @@ import com.nostra13.universalimageloader.core.ImageLoader;
 public class CustomBindingAdapter {
     @BindingAdapter(value = "imageUrl")
     public static void setImageUrl(ImageView imageView, String imageUrl) {
+        imageView.setImageDrawable(imageView.getContext().getDrawable(android.R.drawable.ic_menu_gallery));
         ImageLoader.getInstance().displayImage(imageUrl, imageView);
     }
 

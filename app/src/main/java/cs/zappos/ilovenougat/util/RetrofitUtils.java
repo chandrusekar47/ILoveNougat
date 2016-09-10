@@ -6,6 +6,7 @@ import com.fasterxml.jackson.core.JsonGenerator;
 import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
+import cs.zappos.ilovenougat.api.SixPmApi;
 import cs.zappos.ilovenougat.api.ZapposApi;
 import okhttp3.logging.HttpLoggingInterceptor;
 import retrofit2.Retrofit;
@@ -17,9 +18,9 @@ public class RetrofitUtils {
                 .create(ZapposApi.class);
     }
 
-    public static ZapposApi sixPmApi() {
+    public static SixPmApi sixPmApi() {
         return createRetrofit("https://api.6pm.com")
-                .create(ZapposApi.class);
+                .create(SixPmApi.class);
     }
 
     @NonNull

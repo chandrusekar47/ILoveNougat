@@ -1,4 +1,5 @@
 <resources>
     <string name="app_name">Zapp!</string>
     <string name="search_input">Search for product in Zappos!</string>
+    <string name="thumbnail_image_desc">Image</string>
 </resources>

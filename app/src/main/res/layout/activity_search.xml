@@ -7,6 +7,9 @@
         <variable
             name="eventHandler"
             type="cs.zappos.ilovenougat.activities.SearchActivity" />
+        <variable
+            name="adapterFactory"
+            type="me.tatarka.bindingcollectionadapter.factories.BindingRecyclerViewAdapterFactory" />
 
         <variable
             name="viewModel"
@@ -37,6 +40,7 @@
             android:layout_height="wrap_content"
             app:itemView="@{viewModel.itemView}"
             app:items="@{viewModel.searchResults}"
+            app:adapter='@{adapterFactory}'
             app:layoutManager="@{LayoutManagers.linear()}">
 
         </android.support.v7.widget.RecyclerView>
