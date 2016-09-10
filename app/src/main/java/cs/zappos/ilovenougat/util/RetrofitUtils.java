@@ -2,6 +2,7 @@ package cs.zappos.ilovenougat.util;
 
 import android.support.annotation.NonNull;
 
+import com.fasterxml.jackson.core.JsonGenerator;
 import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
@@ -23,10 +24,14 @@ public class RetrofitUtils {
 
     @NonNull
     private static Retrofit createRetrofit(String baseUrl) {
+        ObjectMapper objectMapper = new ObjectMapper();
+        objectMapper.configure(DeserializationFeature.FAIL_ON_IGNORED_PROPERTIES, false)
+                .configure(JsonGenerator.Feature.IGNORE_UNKNOWN, true)
+                .configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
         return new Retrofit.Builder()
                 .client(new okhttp3.OkHttpClient.Builder()
                         .addInterceptor(new HttpLoggingInterceptor().setLevel(HttpLoggingInterceptor.Level.BODY)).build())
-                .addConverterFactory(JacksonConverterFactory.create(new ObjectMapper().disable(DeserializationFeature.FAIL_ON_IGNORED_PROPERTIES)))
+                .addConverterFactory(JacksonConverterFactory.create(objectMapper))
                 .baseUrl(baseUrl)
                 .build();
     }

@@ -4,6 +4,11 @@ android {
     compileSdkVersion 24
     buildToolsVersion "24.0.1"
 
+
+    dataBinding {
+        enabled = true
+    }
+
     defaultConfig {
         applicationId "cs.zappos.ilovenougat"
         minSdkVersion 15
@@ -30,5 +35,6 @@ dependencies {
     compile group: 'com.squareup.retrofit2', name: 'converter-jackson', version: '2.1.0'
     compile 'com.nostra13.universalimageloader:universal-image-loader:1.9.5'
     compile group: 'com.squareup.retrofit', name: 'retrofit-mock', version: '2.0.0-beta2'
+    compile 'me.tatarka.bindingcollectionadapter:bindingcollectionadapter-recyclerview:1.3.0'
     provided "org.projectlombok:lombok:1.12.6"
 }
