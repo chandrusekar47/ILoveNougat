@@ -1,7 +1,10 @@
 package cs.zappos.ilovenougat.model;
 
+import android.text.Html;
+
 public class ZappoProduct {
-    public String brandName;
+    private String brandName;
+    private String productName;
     public String thumbnailImageUrl;
     public String productId;
     public String originalPrice;
@@ -10,10 +13,16 @@ public class ZappoProduct {
     public String price;
     public String percentOff;
     public String productUrl;
-    public String productName;
 
     public boolean isOnSale() {
         return originalPrice != null && !originalPrice.equals(price);
     }
 
+    public String getBrandName() {
+        return Html.fromHtml(brandName).toString();
+    }
+
+    public String getProductName() {
+        return Html.fromHtml(productName).toString();
+    }
 }
