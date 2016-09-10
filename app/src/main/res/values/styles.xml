@@ -8,4 +8,23 @@
         <item name="colorAccent">@color/colorAccent</item>
     </style>
 
+    <style name="LargeText">
+        <item name="android:textSize">20sp</item>
+    </style>
+    <style name="LargeText.Light">
+        <item name="android:color">@color/gray</item>
+    </style>
+
+    <style name="NormalText">
+        <item name="android:textSize">14sp</item>
+    </style>
+
+    <style name="NormalText.Bold">
+        <item name="android:textStyle">bold</item>
+    </style>
+
+    <style name="LargeText.Bold">
+        <item name="android:textStyle">bold</item>
+    </style>
+
 </resources>

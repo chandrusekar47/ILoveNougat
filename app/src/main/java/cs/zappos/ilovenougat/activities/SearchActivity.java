@@ -1,11 +1,14 @@
 package cs.zappos.ilovenougat.activities;
 
+import android.content.Context;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.KeyEvent;
+import android.view.WindowManager;
 import android.view.inputmethod.EditorInfo;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -45,6 +48,9 @@ public class SearchActivity extends AppCompatActivity implements BindingRecycler
 
     public boolean onEditorAction(TextView view, int actionId, KeyEvent keyEvent) {
         if (actionId == EditorInfo.IME_ACTION_SEARCH) {
+            view.clearFocus();
+            InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+            imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
             searchZappos(view.getText().toString());
             return true;
         }
@@ -52,13 +58,13 @@ public class SearchActivity extends AppCompatActivity implements BindingRecycler
     }
 
     private void searchZappos(String searchQuery) {
+        searchViewModel.searchStarted();
         RetrofitUtils.zapposApi().search(searchQuery, BuildConfig.ZAPPOS_API_KEY)
                 .enqueue(new Callback<ZappoSearchResults>() {
                     @Override
                     public void onResponse(Call<ZappoSearchResults> call, Response<ZappoSearchResults> response) {
                         if (response.isSuccessful()) {
-                            searchViewModel.searchResults.clear();
-                            searchViewModel.searchResults.addAll(response.body().results);
+                            searchViewModel.updateSearchResults (response.body());
                             activitySearchBinding.executePendingBindings();
                         } else {
                             Log.e(SearchActivity.class.getName(), "Unable to reach server. Please try again later " + response.message());
