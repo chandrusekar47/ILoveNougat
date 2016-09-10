@@ -26,5 +26,9 @@ dependencies {
     testCompile 'junit:junit:4.12'
     compile 'com.android.support:appcompat-v7:24.2.0'
     compile 'com.squareup.retrofit2:retrofit:2.1.0'
-
+    compile 'com.squareup.okhttp3:logging-interceptor:3.4.1'
+    compile group: 'com.squareup.retrofit2', name: 'converter-jackson', version: '2.1.0'
+    compile 'com.nostra13.universalimageloader:universal-image-loader:1.9.5'
+    compile group: 'com.squareup.retrofit', name: 'retrofit-mock', version: '2.0.0-beta2'
+    provided "org.projectlombok:lombok:1.12.6"
 }
