@@ -1,0 +1,8 @@
+ext {
+    zapposApiKey = "<zapposApiKey>"
+    sixPmApiKey = "<sixPmApiKey>"
+    keyStorePath="<keystorepath>"
+    keyStorePassword="<keystorePassword>"
+    keyAlias="<alias>"
+    keyPassword="<keyPassword>"
+}

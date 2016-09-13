@@ -18,9 +18,20 @@ android {
         buildConfigField "String", "ZAPPOS_API_KEY", "\"${rootProject.ext.zapposApiKey}\""
         buildConfigField "String", "SIX_PM_API_KEY", "\"${rootProject.ext.sixPmApiKey}\""
     }
+
+    signingConfigs {
+        release {
+            storeFile file(rootProject.ext.keyStorePath)
+            storePassword rootProject.ext.keyStorePassword
+            keyAlias rootProject.ext.keyAlias
+            keyPassword rootProject.ext.keyPassword
+        }
+    }
+
     buildTypes {
         release {
-            minifyEnabled false
+            signingConfig signingConfigs.release
+            minifyEnabled true
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }

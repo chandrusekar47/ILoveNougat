@@ -1,1 +1,1 @@
-Create a file name "api.gradle" in the project root directory with the contents from "api.gradle.sample". Add your api keys there.
+Create a file name "local-config.gradle" in the project root directory with the contents from "local-config.gradle.sample". Add your api keys there. Update the key store settings there. "local-config.gradle" is git ignored as it contains confidential information.
